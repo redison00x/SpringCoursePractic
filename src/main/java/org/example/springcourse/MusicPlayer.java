@@ -1,12 +1,26 @@
 package org.example.springcourse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
 @Component
 public class MusicPlayer {
+    @Value("${musicPlayer.name}")
+    private String name;
+    @Value("${musicPlayer.volume}")
+    private int volume;
+
+    public String getName() {
+        return name;
+    }
+
+    public int getVolume() {
+        return volume;
+    }
+
     private ClassicalMusic classicalMusic;
     private RockMusic rockMusic;
 
@@ -20,12 +34,14 @@ public class MusicPlayer {
 
         Random random = new Random();
         int randomNumber = random.nextInt(3);
+        String chosen;
 
         if (genre == chooseGenre.CLASSICAL) {
-            System.out.println(classicalMusic.getSongs().get(randomNumber));
+            chosen = classicalMusic.getSongs().get(randomNumber);
         }
         else {
-            System.out.println(rockMusic.getSongs().get(randomNumber));
+            chosen = rockMusic.getSongs().get(randomNumber);
         }
+        System.out.println(chosen);
     }
 }
